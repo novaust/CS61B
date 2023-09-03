@@ -14,8 +14,15 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     }
 
     public boolean containsKey(K key) {
-        if (key == null) throw new IllegalArgumentException("argument null");
-        return get(key) != null;
+        return containsKey(node, key);
+    }
+
+    private boolean containsKey(Node node, K key) {
+        if (node == null) return false;
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) return containsKey(node.left, key);
+        else if (cmp > 0) return containsKey(node.right, key);
+        return true;
     }
 
     public V get(K key) {
