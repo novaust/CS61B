@@ -107,7 +107,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void clear() {
-        buckets = createTable(DEFAULT_SIZE);
+        buckets = createTable(buckets.length);
         size = 0;
     }
 
