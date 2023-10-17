@@ -110,9 +110,24 @@ public class Model extends Observable {
         boolean changed;
         changed = false;
 
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
+        int sum = 0;
+        board.setViewingPerspective(side);  // "rotate" dir as North
+        for (int i = 2; i > 0; i--) {
+            int targetRow = 3;
+            for (int j = 0; j < board.size(); j++) {
+                Tile t = board.tile(j, i);
+                if (t == null)
+                    continue;
+                boolean isMerged = board.move(j, targetRow, t);
+                if (isMerged) {
+                    changed = true;
+                    sum += board.tile(j, targetRow).value();
+                    targetRow--;
+                }
+            }
+        }
+        score += sum;
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -137,7 +152,10 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++)      // col
+            for (int j = 0; j < b.size(); j++)  // row
+                if (b.tile(i, j) == null)       // tile(col, row)
+                    return true;
         return false;
     }
 
@@ -147,7 +165,10 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++)
+            for (int j = 0; j < b.size(); j++)
+                if (b.tile(i,j) != null && b.tile(i, j).value() == MAX_PIECE)
+                    return true;
         return false;
     }
 
@@ -158,7 +179,21 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                if (b.tile(i, j) == null)
+                    return true;
+
+                if (j != 0 && b.tile(i, j).value() == b.tile(i, j-1).value())   // Left
+                    return true;
+                else if (j != b.size()-1 && b.tile(i, j).value() == b.tile(i, j+1).value())     // Right
+                    return true;
+                else if (i != 0 && b.tile(i, j).value() == b.tile(i-1, j).value())  // Up
+                    return true;
+                else if (i != b.size()-1 && b.tile(i, j).value() == b.tile(i+1, j).value())
+                    return true;
+            }
+        }
         return false;
     }
 
