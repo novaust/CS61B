@@ -112,15 +112,18 @@ public class Model extends Observable {
 
         int sum = 0;
         board.setViewingPerspective(side);  // "rotate" dir as North
-        for (int i = 2; i > 0; i--) {
+        for (int j = 0; j < board.size(); j++) {
             int targetRow = 3;
-            for (int j = 0; j < board.size(); j++) {
+            for (int i = 2; i >= 0; i--) {
                 Tile t = board.tile(j, i);
+                Tile target = board.tile(j, targetRow);
                 if (t == null)
                     continue;
+                if (target != null && target.value() != t.value())
+                    targetRow--;
                 boolean isMerged = board.move(j, targetRow, t);
+                changed = true;     // ?
                 if (isMerged) {
-                    changed = true;
                     sum += board.tile(j, targetRow).value();
                     targetRow--;
                 }
@@ -183,14 +186,18 @@ public class Model extends Observable {
             for (int j = 0; j < b.size(); j++) {
                 if (b.tile(i, j) == null)
                     return true;
-
-                if (j != 0 && b.tile(i, j).value() == b.tile(i, j-1).value())   // Left
+                // TODO: Simplify
+                if (i != 0 && b.tile(i-1, j) != null
+                        && b.tile(i, j).value() == b.tile(i-1, j).value())   // Left
                     return true;
-                else if (j != b.size()-1 && b.tile(i, j).value() == b.tile(i, j+1).value())     // Right
+                else if (i != b.size()-1 && b.tile(i+1, j) != null
+                        && b.tile(i, j).value() == b.tile(i+1, j).value())     // Right
                     return true;
-                else if (i != 0 && b.tile(i, j).value() == b.tile(i-1, j).value())  // Up
+                else if (j != 0 && b.tile(i, j-1) != null
+                        && b.tile(i, j).value() == b.tile(i, j-1).value())  // Up
                     return true;
-                else if (i != b.size()-1 && b.tile(i, j).value() == b.tile(i+1, j).value())
+                else if (j != b.size()-1 && b.tile(i, j+1) != null
+                        && b.tile(i, j).value() == b.tile(i, j+1).value())     // Down
                     return true;
             }
         }
