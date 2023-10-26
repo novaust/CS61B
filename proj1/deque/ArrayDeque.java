@@ -14,9 +14,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         nextLast = 5;
         size = 0;
     }
+
+    public ArrayDeque(T item) {
+        items[4] = item;
+        size = 1;
+        nextFirst = 3;
+        nextLast = 5;
+    }
     public void addFirst(T item) {
         items[nextFirst] = item;
-        nextFirst = (nextFirst + 1 + 8) % 8;
+        nextFirst = (nextFirst - 1 + items.length) % items.length;
         size++;
         if (size == items.length)
             resize(size * 2);
@@ -24,7 +31,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public void addLast(T item) {
         items[nextLast] = item;
-        nextLast = (nextLast + 1) % 8;
+        nextLast = (nextLast + 1) % items.length;
         size++;
         if (size == items.length)
             resize(size * 2);
@@ -34,7 +41,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public T removeFirst() {
         if (isEmpty())
             return null;
-        nextFirst = (nextFirst + 1) % 8;
+        nextFirst = (nextFirst + 1) % items.length;
         T item = items[nextFirst];
         items[nextFirst] = null;
         size--;
@@ -46,7 +53,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public T removeLast() {
         if (isEmpty())
             return null;
-        nextLast = (nextLast + 1 + 8) % 8;
+        nextLast = (nextLast - 1 + items.length) % items.length;
         T item = items[nextLast];
         items[nextLast] = null;
         size--;
@@ -57,11 +64,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private void resize(int newSize) {
         T[] newItems = (T[]) new Object[newSize];   // is good?
-        int pos = Math.abs(newSize - size) / 2;
-        System.arraycopy(items, 0, newItems, pos, size);
+        // TODO
         items = newItems;
-        nextFirst = pos - 1;
-        nextLast = size + pos;
     }
 
     public boolean isEmpty() {
@@ -74,10 +78,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public void printDeque() {
         String[] str = new String[size];
+        int cnt = 0;
         for (int i = 0; i < items.length; i++) {
             if (items[i] == null)
                 continue;
-            str[i] = items[i].toString();
+            str[cnt++] = items[i].toString();
         }
         System.out.println(String.join(" ", str));
         System.out.println("\n");
@@ -86,7 +91,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public T get(int index) {
         if (index < 0 || index >= items.length)
             return null;
-        return items[nextFirst + index + 1];
+        int start = (nextFirst + 1) % items.length;
+        return items[(start + index) % items.length];
     }
 
     @Override
