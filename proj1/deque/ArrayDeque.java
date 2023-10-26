@@ -64,7 +64,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private void resize(int newSize) {
         T[] newItems = (T[]) new Object[newSize];   // is good?
-        // TODO
+        int start = (nextFirst + 1) % items.length;
+        int pos = 0;
+        while (start != nextFirst) {
+            if (items[start] != null)
+                newItems[pos++] = items[start];
+            start = (start + 1) % items.length;
+        }
+        newItems[pos++] = items[start];
+        nextLast = pos;
+        nextFirst = newItems.length - 1;
         items = newItems;
     }
 
