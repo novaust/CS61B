@@ -139,7 +139,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
 
         public T next() {
-            T item = p.value;
+            T item = p.next.value;
             p = p.next;
             return item;
         }
