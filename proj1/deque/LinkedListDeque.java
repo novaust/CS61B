@@ -1,7 +1,5 @@
 package deque;
 
-import org.antlr.v4.runtime.misc.NotNull;
-
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
@@ -86,7 +84,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (index == 0) {
             return curNode.value;
         }
-        return getRecursion(index-1, curNode.next);
+        return getRecursion(index - 1, curNode.next);
     }
 
     public void printDeque() {
@@ -116,7 +114,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
         for (int i = 0; i < size; i++) {
-            if (llDeque.get(i) != get(i)) {
+            if (!llDeque.get(i).equals(get(i))) {
                 return false;
             }
         }
