@@ -14,8 +14,9 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
     }
 
     public T max(Comparator<T> c) {
-        if (isEmpty())
+        if (isEmpty()) {
             return null;
+        }
         T max = get(0);
         for (int i = 1; i < size(); i++) {
             T item = get(i);
@@ -28,10 +29,12 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof MaxArrayDeque))
+        if (!(o instanceof MaxArrayDeque)) {
             return false;
-        if (((MaxArrayDeque<?>) o).max() != max())
+        }
+        if (((MaxArrayDeque<?>) o).max() != max()) {
             return false;
+        }
         return super.equals(o);
     }
 }

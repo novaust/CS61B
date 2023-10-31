@@ -20,21 +20,24 @@ public class GuitarHero {
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
                 int index = KEYBOARD.indexOf(key);
-                if (index >= 0)
+                if (index >= 0) {
                     guitarStrings[index].pluck();
+                }
             }
 
             /* compute the superposition of samples */
             double sample = 0.0;
-            for (GuitarString g : guitarStrings)
+            for (GuitarString g : guitarStrings) {
                 sample += g.sample();
+            }
 
             /* play the sample on standard audio */
             StdAudio.play(sample);
 
             /* advance the simulation of each guitar string by one step */
-            for (GuitarString g : guitarStrings)
+            for (GuitarString g : guitarStrings) {
                 g.tic();
+            }
         }
     }
 }

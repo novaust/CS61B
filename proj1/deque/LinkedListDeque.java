@@ -47,8 +47,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public T removeFirst() {
         Node node = head.next;
-        if (node == tail)
+        if (node == tail) {
             return null;
+        }
         head.next = node.next;
         node.next.prev = head;
         size--;
@@ -57,8 +58,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public T removeLast() {
         Node node = tail.prev;
-        if (node == head)
+        if (node == head) {
             return null;
+        }
         tail.prev = node.prev;
         node.prev.next = tail;
         size--;
@@ -67,23 +69,27 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     // ?
     public T get(int index) {
-        if (index < 0 || index > size - 1)
+        if (index < 0 || index > size - 1) {
             return null;
+        }
         Node node = head;
-        for (int i = 0; i <= index; i++)
+        for (int i = 0; i <= index; i++) {
             node = node.next;
+        }
         return node.value;
     }
 
     public T getRecursive(int index) {
-        if (index < 0 || index > size - 1)
+        if (index < 0 || index > size - 1) {
             return null;
+        }
         return getRecursion(index, head.next);
     }
 
     private T getRecursion(int index, Node curNode) {
-        if (index == 0)
+        if (index == 0) {
             return curNode.value;
+        }
         return getRecursion(index-1, curNode.next);
     }
 
@@ -109,21 +115,21 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
 
         LinkedListDeque<?> llDeque = (LinkedListDeque<?>) o;    // is good?
-        if (llDeque.size() != size)
+        if (llDeque.size() != size) {
             return false;
+        }
         for (int i = 0; i < size; i++) {
-            if (llDeque.get(i) != get(i))
+            if (llDeque.get(i) != get(i)) {
                 return false;
+            }
         }
         return true;
     }
 
     private class Node {
-        public T value;
-        public Node next = null;
-        public Node prev = null;
-
-        //public T getValue() { return value; }
+        T value;
+        Node next = null;
+        Node prev = null;
     }
 
     private class LinkedListDequeIterator implements Iterator<T> {

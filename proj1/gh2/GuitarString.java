@@ -18,8 +18,9 @@ public class GuitarString {
     public GuitarString(double frequency) {
         long capacity  = Math.round(SR / frequency);
         buffer = new ArrayDeque<>();
-        for (int i = 0; i < capacity; i ++)
+        for (int i = 0; i < capacity; i++) {
             buffer.addLast(0.0);
+        }
     }
 
 
