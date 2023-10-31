@@ -21,10 +21,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return size;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     public void addFirst(T item) {
         Node node = new Node();
         node.value = item;

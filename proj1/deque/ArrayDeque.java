@@ -15,12 +15,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         size = 0;
     }
 
-    public ArrayDeque(T item) {
-        items[4] = item;
-        size = 1;
-        nextFirst = 3;
-        nextLast = 5;
-    }
     public void addFirst(T item) {
         items[nextFirst] = item;
         nextFirst = (nextFirst - 1 + items.length) % items.length;
@@ -79,10 +73,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         nextLast = pos;
         nextFirst = newItems.length - 1;
         items = newItems;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public int size() {

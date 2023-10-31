@@ -27,7 +27,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return max;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (!(o instanceof MaxArrayDeque)) {
             return false;
@@ -36,5 +36,5 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
             return false;
         }
         return super.equals(o);
-    }
+    }*/
 }
