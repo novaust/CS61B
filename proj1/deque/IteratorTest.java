@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class IteratorTest {
     @Test
-    public void LLDIteratorTest() {
+    public void llDIteratorTest() {
         LinkedListDeque<Integer> lld = new LinkedListDeque<>();
         for (int i = 0; i < 5; i++) {
             lld.addLast(i);

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 public class EqualsTest {
     @Test
-    public void DequeEqualsTest() {
+    public void dequeEqualsTest() {
         LinkedListDeque<Integer> lld = new LinkedListDeque<>();
         ArrayDeque<Integer> ad = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
