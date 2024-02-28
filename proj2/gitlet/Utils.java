@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
 
-
 /** Assorted utilities.
  *
  * Give this file a good read as it provides several useful utility functions
@@ -235,5 +234,19 @@ class Utils {
     static void message(String msg, Object... args) {
         System.out.printf(msg, args);
         System.out.println();
+    }
+
+
+
+    /* Novaust PART */
+
+    /**
+     * send notification to user and exit gitlet
+     * @param msg notification before exit
+     */
+    static void exit(String msg, Object... args)
+    {
+        message(msg, args);
+        System.exit(0);
     }
 }
